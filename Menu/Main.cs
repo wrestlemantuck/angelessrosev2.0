@@ -683,8 +683,8 @@ namespace StupidTemplate.Menu
         public static Camera TPC;
         public static Text fpsObject;
 
-        private static GameObject GunPointer;
-        private static LineRenderer GunLine;
+        public static GameObject GunPointer;
+        public static LineRenderer GunLine;
 
         // Data
         public static int pageNumber = 0;

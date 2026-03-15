@@ -159,51 +159,27 @@ namespace StupidTemplate.Mods
 
         // vars for TeleportGun below
         public static bool previousTeleportTrigger;
-        public static GameObject currentPointer;
-        public static GameObject currentLine;
         public static float maxTeleportDistance = 60f;
 
         public static void TeleportGun()
         {
         if (!ControllerInputPoller.instance.rightGrab)
         {
-        if (currentPointer != null)
-        {
-        Object.Destroy(currentPointer);
-        currentPointer = null;
-        }
+        if (GunPointer != null)
+        GunPointer.SetActive(false);
 
-            if (currentLine != null)
-            {
-                Object.Destroy(currentLine);
-                currentLine = null;
-            }
+            if (GunLine != null)
+                GunLine.gameObject.SetActive(false);
 
             previousTeleportTrigger = false;
             return;
         }
 
         var gunData = RenderGun();
-        currentPointer = gunData.NewPointer;
+        Vector3 startPos = GorillaTagger.Instance.headCollider.transform.position;
+        Vector3 targetPos = gunData.NewPointer.transform.position;
 
-        if (currentLine == null)
-        {
-            currentLine = new GameObject("TeleportGunLine");
-            currentLine.AddComponent<LineRenderer>();
-        }
-
-        LineRenderer lr = currentLine.GetComponent<LineRenderer>();
-        lr.positionCount = 2;
-
-        Vector3 startPos = GorillaTagger.Instance.rightHandTransform.position;
-        Vector3 targetPos = currentPointer.transform.position;
-
-        lr.SetPosition(0, startPos);
-        lr.SetPosition(1, targetPos);
-
-        Vector3 headPos = GorillaTagger.Instance.headCollider.transform.position;
-
-        if (Vector3.Distance(headPos, targetPos) > maxTeleportDistance)
+        if (Vector3.Distance(startPos, targetPos) > maxTeleportDistance)
         {
             previousTeleportTrigger = ControllerInputPoller.TriggerFloat(XRNode.RightHand) > 0.8f;
             return;
@@ -211,9 +187,7 @@ namespace StupidTemplate.Mods
 
         RaycastHit hit;
         if (Physics.Raycast(targetPos + Vector3.up * 2f, Vector3.down, out hit, 10f))
-        {
             targetPos = hit.point;
-        }
 
         bool trigger = ControllerInputPoller.TriggerFloat(XRNode.RightHand) > 0.8f;
 
@@ -229,6 +203,7 @@ namespace StupidTemplate.Mods
         }
 
         previousTeleportTrigger = trigger;
+
 
         } // may have made this a better mod than the normal one.
     }
