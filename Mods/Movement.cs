@@ -176,38 +176,43 @@ namespace StupidTemplate.Mods
                 return;
             }
 
+        if (currentPointer == null)
+        {
             var gunData = RenderGun();
-            GameObject pointer = gunData.NewPointer;
-            currentPointer = pointer;
+            currentPointer = gunData.NewPointer;
+        }
 
-            Vector3 startPos = GorillaTagger.Instance.headCollider.transform.position;
-            Vector3 targetPos = pointer.transform.position;
+        GameObject pointer = currentPointer;
 
-            if (Vector3.Distance(startPos, targetPos) > maxTeleportDistance)
-            {
-                return;
-            }
+        Vector3 startPos = GorillaTagger.Instance.headCollider.transform.position;
+        Vector3 targetPos = pointer.transform.position;
 
-            RaycastHit hit;
-            if (Physics.Raycast(targetPos + Vector3.up * 2f, Vector3.down, out hit, 10f))
-            {
-                targetPos = hit.point;
-            }
+        if (Vector3.Distance(startPos, targetPos) > maxTeleportDistance)
+        {
+            return;
+        }
 
-            bool trigger = ControllerInputPoller.TriggerFloat(XRNode.RightHand) > 0.8f;
+        RaycastHit hit;
+        if (Physics.Raycast(targetPos + Vector3.up * 2f, Vector3.down, out hit, 10f))
+        {
+            targetPos = hit.point;
+        }
 
-            if (trigger && !previousTeleportTrigger)
-            {
-                GTPlayer.Instance.TeleportTo(
-                    targetPos + Vector3.up * 0.1f,
-                    GorillaTagger.Instance.headCollider.transform.rotation
-                );
+        bool trigger = ControllerInputPoller.TriggerFloat(XRNode.RightHand) > 0.8f;
 
-                GorillaTagger.Instance.rigidbody.linearVelocity = Vector3.zero;
-                GorillaTagger.Instance.rigidbody.angularVelocity = Vector3.zero;
-            }
+        if (trigger && !previousTeleportTrigger)
+        {
+            GTPlayer.Instance.TeleportTo(
+                targetPos + Vector3.up * 0.1f,
+                GorillaTagger.Instance.headCollider.transform.rotation
+            );
 
-            previousTeleportTrigger = trigger;
+            GorillaTagger.Instance.rigidbody.linearVelocity = Vector3.zero;
+            GorillaTagger.Instance.rigidbody.angularVelocity = Vector3.zero;
+        }
+
+        previousTeleportTrigger = trigger;
+
         } // may have made this a better mod than the normal one.
     }
 }
