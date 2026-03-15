@@ -28,18 +28,50 @@ private static float nextRigScan = 0f;
                     Object.Destroy(box.GetComponent<BoxCollider>());
 
                     box.transform.SetParent(rig.transform);
-
                     box.transform.localPosition = new Vector3(0f, 0.5f, 0f);
                     box.transform.localRotation = Quaternion.identity;
                     box.transform.localScale = new Vector3(0.6f, 1.1f, 0.05f);
 
                     Renderer renderer = box.GetComponent<Renderer>();
                     renderer.material.shader = Shader.Find("GUI/Text Shader");
-                    renderer.material.color = Color.red;
 
                     boxESP.Add(rig, box);
                 }
             }
+
+            List<VRRig> toRemove = new List<VRRig>();
+
+            foreach (KeyValuePair<VRRig, GameObject> pair in boxESP)
+            {
+                if (pair.Key == null)
+                {
+                    Object.Destroy(pair.Value);
+                    toRemove.Add(pair.Key);
+                }
+            }
+
+            foreach (VRRig rig in toRemove)
+                boxESP.Remove(rig);
+        }
+
+        foreach (KeyValuePair<VRRig, GameObject> pair in boxESP)
+        {
+            VRRig rig = pair.Key;
+            GameObject box = pair.Value;
+
+            if (rig == null || box == null)
+                continue;
+
+            Renderer renderer = box.GetComponent<Renderer>();
+
+            Color playerColor = rig.playerColor;
+
+            bool tagged = playerColor.r > 0.8f && playerColor.g < 0.3f && playerColor.b < 0.3f;
+
+            if (tagged)
+                renderer.material.color = Color.red;
+            else
+                renderer.material.color = Color.white;
         }
     }
 
