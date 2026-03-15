@@ -64,14 +64,12 @@ private static float nextRigScan = 0f;
 
             Renderer renderer = box.GetComponent<Renderer>();
 
-            Color playerColor = rig.playerColor;
-
-            bool tagged = playerColor.r > 0.8f && playerColor.g < 0.3f && playerColor.b < 0.3f;
-
-            if (tagged)
-                renderer.material.color = Color.red;
+            if (rig.isLocal)
+                renderer.material.color = Color.green;
             else
                 renderer.material.color = Color.white;
+
+            renderer.material.color = Color.white;
         }
     }
 
