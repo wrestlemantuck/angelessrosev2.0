@@ -160,35 +160,52 @@ namespace StupidTemplate.Mods
         // vars for TeleportGun below
         public static bool previousTeleportTrigger;
         public static GameObject currentPointer;
-        public static float maxTeleportDistance = 60f; // Again, camelCase, this is to prevent anti cheat flags, also to prevent teleporting out the map on accident.
+        public static GameObject currentLine;
+        public static float maxTeleportDistance = 60f;
 
         public static void TeleportGun()
         {
-            if (!ControllerInputPoller.instance.rightGrab)
-            {
-                if (currentPointer != null)
-                {
-                    Object.Destroy(currentPointer);
-                    currentPointer = null;
-                }
-
-                previousTeleportTrigger = false;
-                return;
-            }
-
-        if (currentPointer == null)
+        if (!ControllerInputPoller.instance.rightGrab)
         {
-            var gunData = RenderGun();
-            currentPointer = gunData.NewPointer;
+        if (currentPointer != null)
+        {
+        Object.Destroy(currentPointer);
+        currentPointer = null;
         }
 
-        GameObject pointer = currentPointer;
+            if (currentLine != null)
+            {
+                Object.Destroy(currentLine);
+                currentLine = null;
+            }
 
-        Vector3 startPos = GorillaTagger.Instance.headCollider.transform.position;
-        Vector3 targetPos = pointer.transform.position;
+            previousTeleportTrigger = false;
+            return;
+        }
 
-        if (Vector3.Distance(startPos, targetPos) > maxTeleportDistance)
+        var gunData = RenderGun();
+        currentPointer = gunData.NewPointer;
+
+        if (currentLine == null)
         {
+            currentLine = new GameObject("TeleportGunLine");
+            currentLine.AddComponent<LineRenderer>();
+        }
+
+        LineRenderer lr = currentLine.GetComponent<LineRenderer>();
+        lr.positionCount = 2;
+
+        Vector3 startPos = GorillaTagger.Instance.rightHandTransform.position;
+        Vector3 targetPos = currentPointer.transform.position;
+
+        lr.SetPosition(0, startPos);
+        lr.SetPosition(1, targetPos);
+
+        Vector3 headPos = GorillaTagger.Instance.headCollider.transform.position;
+
+        if (Vector3.Distance(headPos, targetPos) > maxTeleportDistance)
+        {
+            previousTeleportTrigger = ControllerInputPoller.TriggerFloat(XRNode.RightHand) > 0.8f;
             return;
         }
 
