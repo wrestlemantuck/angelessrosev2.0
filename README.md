@@ -17,3 +17,4 @@ Credit isn’t required, but it would be appreciated if you use methods from thi
 
 ### Is anything detected?
 I have not been banned after using this menu, and some expiremental mods for about `2 weeks`. I am pretty sure there is no detections in this menu. The only possible detection is `Give Critter XP` (Only when the button is spammed/the api is called too much.)
+I have also been reported by about 6 whole lobbies of the span of 5 days once
