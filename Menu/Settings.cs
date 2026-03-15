@@ -33,8 +33,8 @@ namespace StupidTemplate
         public static ExtGradient backgroundColor = new ExtGradient
         {
             colors = ExtGradient.GetSimpleGradient(
-                new Color(0.090f, 0.580f, 0.341f), // #179457
-                new Color(0.459f, 0.318f, 0.647f)  // #7551A5
+                new Color(0.235f, 0.537f, 0.584f), // #3C8995
+                new Color(0.600f, 0.561f, 0.243f) // #998F3E
             ),
             rainbow = false,
             epileptic = false
