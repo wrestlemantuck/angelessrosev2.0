@@ -30,7 +30,7 @@ namespace StupidTemplate.Menu
                 new ButtonInfo { buttonText = "Movement Mods", method =() => currentCategory = 5, isTogglable = false, toolTip = "Opens the movement mods tab."},
                 new ButtonInfo { buttonText = "Safety Mods", method =() => currentCategory = 6, isTogglable = false, toolTip = "Opens the safety mods tab."},
                 new ButtonInfo { buttonText = "Experimental Mods", method =() => currentCategory = 7, isTogglable = false, toolTip = "Opens the Experimental mods tab."},
-                new ButtonInfo { buttonText = "Important/Other Mods", method =() => currentCategory = 8, isTogglable = false, toolTip = "Opens the Important/Other mods tab."},
+                new ButtonInfo { buttonText = "Visual Mods", method =() => currentCategory = 8, isTogglable = false, toolTip = "Opens the Visual mods tab."},
             },
 
             new ButtonInfo[] { // Settings [1]
@@ -85,9 +85,9 @@ namespace StupidTemplate.Menu
                 new ButtonInfo { buttonText = "Spawn Random Critter (MASTER) (CRITTER MAP)", method = () => Experimental.SpawnRandomCritterAtHand(), isTogglable = false, toolTip = "[EXPERIMENTAL] Spawned Random Critter Maybe" }, // master
                 new ButtonInfo { buttonText = "Despawn All Critters (W?)", method = () => Experimental.DespawnAllCritters(), isTogglable = false, toolTip = "[EXPERIMENTAL] Despawned all critters (NO MASTER)" }, // not master
             },
-            new ButtonInfo[] { // Important/Other Mods [8]
+            new ButtonInfo[] { // Visual Mods [8]
                 new ButtonInfo { buttonText = "Return to Main", method =() => currentCategory = 0, isTogglable = false, toolTip = "Returns to the main page of the menu."},
-                // this is not used really, might add important mods here, used to have Set FPS stuff.
+                new ButtonInfo { buttonText = "Box ESP", enableMethod =() => Visual.BoxESP(), disableMethod =() => Visual.DisableBoxESP(), isTogglable = true, toolTip = "Lets you see other players easily through walls."},
             },
         };
     }
