@@ -1,0 +1,94 @@
+﻿using StupidTemplate.Classes;
+using StupidTemplate.Mods;
+using static StupidTemplate.Menu.Main;
+using static StupidTemplate.Settings;
+
+namespace StupidTemplate.Menu
+{
+    public class Buttons
+    {
+        /*
+         * Here is where all of your buttons are located.
+         * To create a button, you may use the following code:
+         * 
+         * Move to Category:
+         *   new ButtonInfo { buttonText = "Settings", method =() => currentCategory = 1, isTogglable = false, toolTip = "Opens the main settings page for the menu."},
+         *   new ButtonInfo { buttonText = "Return to Main", method =() => currentCategory = 0, isTogglable = false, toolTip = "Returns to the main page of the menu."},
+         * 
+         * Togglable Mod:
+         *   new ButtonInfo { buttonText = "Platforms", method =() => Movement.Platforms(), toolTip = "Spawns platforms on your hands when pressing grip."},
+         */
+
+
+
+        public static ButtonInfo[][] buttons = new ButtonInfo[][]
+        {
+            new ButtonInfo[] { // Main Mods [0]
+                new ButtonInfo { buttonText = "Settings", method =() => currentCategory = 1, isTogglable = false, toolTip = "Opens the main settings page for the menu."},
+
+                new ButtonInfo { buttonText = "Room Mods", method =() => currentCategory = 4, isTogglable = false, toolTip = "Opens the room mods tab."},
+                new ButtonInfo { buttonText = "Movement Mods", method =() => currentCategory = 5, isTogglable = false, toolTip = "Opens the movement mods tab."},
+                new ButtonInfo { buttonText = "Safety Mods", method =() => currentCategory = 6, isTogglable = false, toolTip = "Opens the safety mods tab."},
+                new ButtonInfo { buttonText = "Experimental Mods", method =() => currentCategory = 7, isTogglable = false, toolTip = "Opens the Experimental mods tab."},
+                new ButtonInfo { buttonText = "Important/Other Mods", method =() => currentCategory = 8, isTogglable = false, toolTip = "Opens the Important/Other mods tab."},
+            },
+
+            new ButtonInfo[] { // Settings [1]
+                new ButtonInfo { buttonText = "Return to Main", method =() => currentCategory = 0, isTogglable = false, toolTip = "Returns to the main page of the menu."},
+                new ButtonInfo { buttonText = "Menu", method =() => currentCategory = 2, isTogglable = false, toolTip = "Opens the settings for the menu."},
+                new ButtonInfo { buttonText = "Movement", method =() => currentCategory = 3, isTogglable = false, toolTip = "Opens the movement settings for the menu."},
+            },
+
+            new ButtonInfo[] { // Menu Settings [2]
+                new ButtonInfo { buttonText = "Return to Settings", method =() => currentCategory = 1, isTogglable = false, toolTip = "Returns to the main settings page for the menu."},
+                new ButtonInfo { buttonText = "Right Hand", enableMethod =() => rightHanded = true, disableMethod =() => rightHanded = false, toolTip = "Puts the menu on your right hand."},
+                new ButtonInfo { buttonText = "Notifications", enableMethod =() => disableNotifications = false, disableMethod =() => disableNotifications = true, enabled = !disableNotifications, toolTip = "Toggles the notifications."},
+                new ButtonInfo { buttonText = "FPS Counter", enableMethod =() => fpsCounter = true, disableMethod =() => fpsCounter = false, enabled = fpsCounter, toolTip = "Toggles the FPS counter."},
+                new ButtonInfo { buttonText = "Disconnect Button", enableMethod =() => disconnectButton = true, disableMethod =() => disconnectButton = false, enabled = disconnectButton, toolTip = "Toggles the disconnect button."}, // all these are default, if you want to change them, you may
+            },
+
+            new ButtonInfo[] { // Movement Settings [3]
+                new ButtonInfo { buttonText = "Return to Settings", method =() => currentCategory = 1, isTogglable = false, toolTip = "Returns to the main settings page for the menu."},
+
+                new ButtonInfo { buttonText = "Change Fly Speed", overlapText = "Change Fly Speed [Normal]", method =() => Mods.Settings.Movement.ChangeFlySpeed(), isTogglable = false, toolTip = "Changes the speed of the fly mod."}, // seems to not change much of the fly speed, might fix that later
+                new ButtonInfo { buttonText = "Change Long Arm Length", overlapText = "Change LongArm Length", method =() => Mods.Settings.Movement.ChangeLongArmLength(), isTogglable = false, toolTip = "Changes long arms length"}, // for the long arms mod, you may have to disable the long arms mod, then re enable it to take effect.
+            },
+
+            new ButtonInfo[] { // Room Mods [4]
+                new ButtonInfo { buttonText = "Return to Main", method =() => currentCategory = 0, isTogglable = false, toolTip = "Returns to the main page of the menu."},
+
+                new ButtonInfo { buttonText = "Disconnect", method =() => NetworkSystem.Instance.ReturnToSinglePlayer(), isTogglable = false, toolTip = "Disconnects you from the room."}, // more room mods here soon!
+            },
+
+            new ButtonInfo[] { // Movement Mods [5]
+                new ButtonInfo { buttonText = "Return to Main", method =() => currentCategory = 0, isTogglable = false, toolTip = "Returns to the main page of the menu."},
+
+                new ButtonInfo { buttonText = "No tag freeze", method =() => Movement.NoTagFreeze(), isTogglable = true, toolTip = "Removes tag freeze"}, 
+                new ButtonInfo { buttonText = "Long Arms", enableMethod =() => Movement.EnableLongArms(), disableMethod =() => Movement.DisableLongArms(), toolTip = "Long arms (Changable in settings)"}, // you can change this in the settings of the menu/runtime
+                new ButtonInfo { buttonText = "Force tag freeze", method =() => Movement.ForceTagFreeze(), isTogglable = true, toolTip = "Forces tag freeze"}, // Must use notagfreeze to remove this.
+                new ButtonInfo { buttonText = "Platforms", method =() => Movement.Platforms(), toolTip = "Spawns platforms on your hands when pressing grip."},
+                new ButtonInfo { buttonText = "Fly", method =() => Movement.Fly(), toolTip = "Sends you forward when holding A."}, // the Speed setting seems to not work
+                new ButtonInfo { buttonText = "Teleport Gun", method =() => Movement.TeleportGun(), toolTip = "Teleports you to wherever your pointer is when pressing trigger."}, // may have revamped the gun. havent tested yet.
+                new ButtonInfo { buttonText = "UnCheckable SpeedBoost", method =() => Movement.UCSpeedBoost(), toolTip = "Speed boost that passes the SpeedBoost check."},
+                new ButtonInfo { buttonText = "Checkable SpeedBoost", method =() => Movement.CSpeedBoost(), toolTip = "Speed boost that fails the SpeedBoost check."},
+            },
+
+            new ButtonInfo[] { // Safety Mods [6]
+                new ButtonInfo { buttonText = "Return to Main", method =() => currentCategory = 0, isTogglable = false, toolTip = "Returns to the main page of the menu."},
+                new ButtonInfo { buttonText = "RPC Safety (W?) (D?)", method = () => Safety.RPCSafety(), isTogglable = true, toolTip = "maybe work maybe detected idk"}, // not sure if detected or even working
+            },
+            new ButtonInfo[] { // expiremntal Mods [7]
+                new ButtonInfo { buttonText = "Return to Main", method =() => currentCategory = 0, isTogglable = false, toolTip = "Returns to the main page of the menu."},
+                new ButtonInfo { buttonText = "Apply 100f Knockback", method =() => Experimental.ApplyKnockback(100f), isTogglable = false, toolTip = "[EXPERIMENTAL] Applied 100 knockback"}, // cannot be applied to other people, so if you thought so, thats wrong
+                new ButtonInfo { buttonText = "Add some Ghost Reactor XP (cooldown) (SINGLEPLAYER ROOM/NOONE IN ROOM)", method = () => Experimental.AddProgressionPoints(9999), isTogglable = false, toolTip = "[EXPERIMENTAL] Added some Ghost Reactor XP (dont spam) (SINGLEPLAYER ROOM/NOONE IN ROOM)" }, // if you spam this, it could get detected because it sends data to a API
+                new ButtonInfo { buttonText = "Give 10000 total playtime (ghost reactor)", method = () => Experimental.SetTotalPlayTime(10000f), isTogglable = false, toolTip = "[EXPERIMENTAL] Added 10k total playtime maybe" }, // no visualization if this is really working, kind of useless.
+                new ButtonInfo { buttonText = "Spawn Random Critter (MASTER) (CRITTER MAP)", method = () => Experimental.SpawnRandomCritterAtHand(), isTogglable = false, toolTip = "[EXPERIMENTAL] Spawned Random Critter Maybe" }, // master
+                new ButtonInfo { buttonText = "Despawn All Critters (W?)", method = () => Experimental.DespawnAllCritters(), isTogglable = false, toolTip = "[EXPERIMENTAL] Despawned all critters (NO MASTER)" }, // not master
+            },
+            new ButtonInfo[] { // Important/Other Mods [8]
+                new ButtonInfo { buttonText = "Return to Main", method =() => currentCategory = 0, isTogglable = false, toolTip = "Returns to the main page of the menu."},
+                // this is not used really, might add important mods here, used to have Set FPS stuff.
+            },
+        };
+    }
+}
