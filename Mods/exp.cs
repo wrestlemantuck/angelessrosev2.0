@@ -7,20 +7,61 @@ using System.Linq;
 using System.Collections.Generic;
 using GorillaNetworking;
 using System.Reflection;
+using System.Collections;
 using GorillaTagScripts; // important
 using HarmonyLib;
 using StupidTemplate.Notifications; // notifs
 using GorillaTag.Reactions;
+using System;
+using UnityEngine.SceneManagement;
 
 namespace StupidTemplate.Mods
 {
     public static class Experimental
     {
+
+        public static void DespawnAllItems() // requires master maybe, and Patches/authoritypatches/IsAuthorityPatch
+        {
+            if (VRRig.LocalRig == null)
+                return;
+                NotifiLib.SendNotification("Failed to despawn (no rig?)");
+
+            GameEntityManager manager = UnityEngine.Object.FindObjectOfType<GameEntityManager>(); // gets the GameObject for gameentitymanager
+            if (manager == null)
+                return;
+                NotifiLib.SendNotification("Failed to despawn (no manager? possibly wrong gamemode or im getting gameEntityManager wrong.)");
+
+            List<GameEntityId> entityIds = new List<GameEntityId>();
+
+            FieldInfo netIdField = typeof(GameEntityManager).GetField("netIdToIndex", BindingFlags.NonPublic | BindingFlags.Instance);
+            if (netIdField == null)
+                return;
+                NotifiLib.SendNotification("Failed to despawn (no netIdField?)");
+
+            IDictionary netIdToIndex = netIdField.GetValue(manager) as IDictionary;
+            if (netIdToIndex == null)
+                return;
+                NotifiLib.SendNotification("Failed to despawn (no netIdToIndex?)");
+
+            foreach (int netId in netIdToIndex.Keys)
+            {
+                GameEntityId entityId = manager.GetEntityIdFromNetId(netId);
+                if (!entityId.Equals(GameEntityId.Invalid))
+                {
+                    entityIds.Add(entityId);
+                }
+            }
+
+            if (entityIds.Count > 0)
+            {
+                manager.RequestDestroyItems(entityIds); // finally, Request all items to be despawned
+            }
+        }
         public static void DespawnAllCritters()
         {
             if (CrittersManager.instance == null || VRRig.LocalRig == null)
                 return;
-            CrittersManager.instance.QueueDespawnAllCritters(); // This requires Patches/LocalAuthorityPatch.cs because gorilla tag has protection
+            CrittersManager.instance.QueueDespawnAllCritters(); // This requires Patches/authoritypatches/LocalAuthorityPatch.cs because gorilla tag has protection
         }
         public static void SpawnCritterAtHand(int critterType) // Requires master
         {
@@ -38,7 +79,7 @@ namespace StupidTemplate.Mods
 
         public static void SpawnRandomCritterAtHand()
         {
-            int randomCritter = Random.Range(1, 17); // 1-16 is the amount of critter prefabs im pretty sure
+            int randomCritter = UnityEngine.Random.Range(1, 17); // 1-16 is the amount of critter prefabs im pretty sure
             SpawnCritterAtHand(randomCritter);
         }
 
@@ -63,7 +104,7 @@ namespace StupidTemplate.Mods
         {
             if (GhostReactorProgression.instance == null) return;
 
-            GRPlayer player = Object.FindObjectOfType<GRPlayer>(); // because gorilla tag changes GTPlayer to GRPlayer when ghost reactor is initialized im pretty sure or im dumb yk
+            GRPlayer player = UnityEngine.Object.FindObjectOfType<GRPlayer>(); // because gorilla tag changes GTPlayer to GRPlayer when ghost reactor is initialized im pretty sure or im dumb yk
             if (player == null) return;
 
             GhostReactorProgression.instance.SetProgression(amount, player); // this method sends a API request to https://prog-prod.gtag-cf.com/ (is in Playfab something i forgot string "ProgressionApiBaseUrl")
@@ -72,12 +113,11 @@ namespace StupidTemplate.Mods
 
         public static void SetTotalPlayTime(float seconds) // not exactly sure if this works, there is no visualization of the total play time
         {
-            GhostReactorShiftManager manager = Object.FindObjectOfType<GhostReactorShiftManager>();
+            GhostReactorShiftManager manager = UnityEngine.Object.FindObjectOfType<GhostReactorShiftManager>();
             if (manager == null) return;
 
             FieldInfo playTimeField = typeof(GhostReactorShiftManager).GetField("totalPlayTime", BindingFlags.NonPublic | BindingFlags.Instance);
             playTimeField?.SetValue(manager, seconds);
         }
-
     }
 }
