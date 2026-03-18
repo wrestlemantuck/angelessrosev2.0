@@ -84,7 +84,6 @@ namespace StupidTemplate.Menu
                 new ButtonInfo { buttonText = "Give 10000 total playtime (ghost reactor)", method = () => Experimental.SetTotalPlayTime(10000f), isTogglable = false, toolTip = "[EXPERIMENTAL] Added 10k total playtime maybe" }, // no visualization if this is really working, kind of useless.
                 new ButtonInfo { buttonText = "Spawn Random Critter (MASTER) (CRITTER MAP)", method = () => Experimental.SpawnRandomCritterAtHand(), isTogglable = false, toolTip = "[EXPERIMENTAL] Spawned Random Critter Maybe" }, // master
                 new ButtonInfo { buttonText = "Despawn All Critters (W?)", method = () => Experimental.DespawnAllCritters(), isTogglable = false, toolTip = "[EXPERIMENTAL] Despawned all critters (NO MASTER)" }, // not master
-                new ButtonInfo { buttonText = "Despawn All superinfection Items (M?) (W?)", method = () => Experimental.DespawnAllItems(), isTogglable = false, toolTip = "[EXPERIMENTAL] Despawned all superinfection items maybe (MAYBE MASTER)" }, // MAYBE master
             },
             new ButtonInfo[] { // Visual Mods [8]
                 new ButtonInfo { buttonText = "Return to Main", method =() => currentCategory = 0, isTogglable = false, toolTip = "Returns to the main page of the menu."},

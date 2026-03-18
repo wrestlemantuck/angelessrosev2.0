@@ -20,42 +20,8 @@ namespace StupidTemplate.Mods
     public static class Experimental
     {
 
-        public static void DespawnAllItems() // requires master maybe, and Patches/authoritypatches/IsAuthorityPatch
+public static void DespawnAllItems()
         {
-            if (VRRig.LocalRig == null)
-                return;
-                NotifiLib.SendNotification("Failed to despawn (no rig?)");
-
-            GameEntityManager manager = UnityEngine.Object.FindObjectOfType<GameEntityManager>(); // gets the GameObject for gameentitymanager
-            if (manager == null)
-                return;
-                NotifiLib.SendNotification("Failed to despawn (no manager? possibly wrong gamemode or im getting gameEntityManager wrong.)");
-
-            List<GameEntityId> entityIds = new List<GameEntityId>();
-
-            FieldInfo netIdField = typeof(GameEntityManager).GetField("netIdToIndex", BindingFlags.NonPublic | BindingFlags.Instance);
-            if (netIdField == null)
-                return;
-                NotifiLib.SendNotification("Failed to despawn (no netIdField?)");
-
-            IDictionary netIdToIndex = netIdField.GetValue(manager) as IDictionary;
-            if (netIdToIndex == null)
-                return;
-                NotifiLib.SendNotification("Failed to despawn (no netIdToIndex?)");
-
-            foreach (int netId in netIdToIndex.Keys)
-            {
-                GameEntityId entityId = manager.GetEntityIdFromNetId(netId);
-                if (!entityId.Equals(GameEntityId.Invalid))
-                {
-                    entityIds.Add(entityId);
-                }
-            }
-
-            if (entityIds.Count > 0)
-            {
-                manager.RequestDestroyItems(entityIds); // finally, Request all items to be despawned
-            }
         }
         public static void DespawnAllCritters()
         {
