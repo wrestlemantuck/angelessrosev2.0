@@ -13,7 +13,7 @@ private static float nextRigScan = 0f;
     {
         if (Time.time > nextRigScan)
         {
-            nextRigScan = Time.time + 0.1f;
+            nextRigScan = Time.time + 0.1f; // 0.1f is the invertal of the scanning
 
             VRRig[] rigs = Object.FindObjectsOfType<VRRig>();
 

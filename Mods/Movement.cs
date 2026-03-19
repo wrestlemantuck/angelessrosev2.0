@@ -5,11 +5,43 @@ using UnityEngine.XR;
 using StupidTemplate.Notifications;
 using static StupidTemplate.Settings;
 using static StupidTemplate.Menu.Main;
+using Oculus.Interaction.Input;
 
 namespace StupidTemplate.Mods
 {
     public class Movement
     {
+        public static void GhostMonke()
+        {
+            if (ControllerInputPoller.instance.rightControllerPrimaryButton)
+            {
+                GorillaTagger.Instance.offlineVRRig.enabled = false;
+            }
+            else
+            {
+                GorillaTagger.Instance.offlineVRRig.enabled = true;
+            }
+        }
+        public static void Noclip()
+        {
+            bool thing = ControllerInputPoller.instance.rightControllerIndexFloat > 0.1f;
+            MeshCollider[] meshColliders = Resources.FindObjectsOfTypeAll<MeshCollider>();
+            foreach (MeshCollider meshCollider in meshColliders)
+            {
+                meshCollider.enabled = !thing;
+            }
+        }
+        public static void CarMonke()
+        {
+            if (ControllerInputPoller.instance.rightControllerIndexFloat > 0.1f)
+            {
+                GorillaLocomotion.GTPlayer.Instance.transform.position += GorillaLocomotion.GTPlayer.Instance.headCollider.transform.forward * Time.deltaTime * 15f; // 15f is speed
+            }
+            if (ControllerInputPoller.instance.rightGrab)
+            {
+                GorillaLocomotion.GTPlayer.Instance.transform.position += GorillaLocomotion.GTPlayer.Instance.headCollider.transform.forward * Time.deltaTime * -15f; // -15f is speed
+            }
+        }
 
         public static void UCSpeedBoost()
         {

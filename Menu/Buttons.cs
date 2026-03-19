@@ -71,6 +71,9 @@ namespace StupidTemplate.Menu
                 new ButtonInfo { buttonText = "Teleport Gun", method =() => Movement.TeleportGun(), toolTip = "Teleports you to wherever your pointer is when pressing trigger."}, // may have revamped the gun. havent tested yet.
                 new ButtonInfo { buttonText = "UnCheckable SpeedBoost", method =() => Movement.UCSpeedBoost(), toolTip = "Speed boost that passes the SpeedBoost check."},
                 new ButtonInfo { buttonText = "Checkable SpeedBoost", method =() => Movement.CSpeedBoost(), toolTip = "Speed boost that fails the SpeedBoost check."},
+                new ButtonInfo { buttonText = "Ghost Monke", method =() => Movement.GhostMonke(), toolTip = "Right Controller Primary Button to ghost monke"},
+                new ButtonInfo { buttonText = "Noclip", method =() => Movement.Noclip(), toolTip = "Right Trigger Button to noclip"},
+                new ButtonInfo { buttonText = "CarMonke", method =() => Movement.CarMonke(), toolTip = "Car Monke basic"},
             },
 
             new ButtonInfo[] { // Safety Mods [6]
