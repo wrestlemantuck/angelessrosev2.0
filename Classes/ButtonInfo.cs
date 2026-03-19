@@ -11,6 +11,6 @@ namespace StupidTemplate.Classes
         public Action disableMethod = null; // if isTogglable
         public bool enabled = false;
         public bool isTogglable = true;
-        public string toolTip = "This button doesn't have a tooltip/tutorial."; // default tooltip, might change this to be nothing
+        public string toolTip = ""; // changed to nothing for better thing
     }
 }

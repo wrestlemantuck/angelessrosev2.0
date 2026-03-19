@@ -14,14 +14,40 @@ using StupidTemplate.Notifications; // notifs
 using GorillaTag.Reactions;
 using System;
 using UnityEngine.SceneManagement;
+using ExitGames.Client.Photon;
 
 namespace StupidTemplate.Mods
 {
     public static class Experimental
     {
-
-public static void DespawnAllItems()
+        public static void NoTagOnJoin()
         {
+            ExitGames.Client.Photon.Hashtable hashtable = new ExitGames.Client.Photon.Hashtable();
+			hashtable.Add("didTutorial", false);
+			PhotonNetwork.LocalPlayer.SetCustomProperties(hashtable, null, null);
+			PlayerPrefs.SetString("didTutorial", "nope");
+			PlayerPrefs.Save();
+
+        }
+        public static void bypassmute()
+        {
+            if (GorillaTagger.moderationMutedTime > 0f)
+            {
+                GorillaTagger.moderationMutedTime = 0f;
+                NotifiLib.SendNotification("Unmuted");
+            }
+            else
+            {
+                NotifiLib.SendNotification("You are Not muted");
+            }
+        }
+        public static void TagOnJoin()
+        {
+            ExitGames.Client.Photon.Hashtable hashtable = new ExitGames.Client.Photon.Hashtable();
+			hashtable.Add("didTutorial", true);
+			PhotonNetwork.LocalPlayer.SetCustomProperties(hashtable, null, null);
+			PlayerPrefs.SetString("didTutorial", "done");
+			PlayerPrefs.Save();
         }
         public static void DespawnAllCritters()
         {

@@ -79,10 +79,13 @@ namespace StupidTemplate.Menu
             new ButtonInfo[] { // Safety Mods [6]
                 new ButtonInfo { buttonText = "Return to Main", method =() => currentCategory = 0, isTogglable = false, toolTip = "Returns to the main page of the menu."},
                 new ButtonInfo { buttonText = "RPC Safety (W?) (D?)", method = () => Safety.RPCSafety(), isTogglable = true, toolTip = "maybe work maybe detected idk"}, // not sure if detected or even working
+                new ButtonInfo { buttonText = "Spoof Color (W?)", method = () => Safety.SpoofColor(), isTogglable = false, toolTip = "maybe work maybe detected idk"}, // not sure if working
             },
             new ButtonInfo[] { // expiremntal Mods [7]
                 new ButtonInfo { buttonText = "Return to Main", method =() => currentCategory = 0, isTogglable = false, toolTip = "Returns to the main page of the menu."},
                 new ButtonInfo { buttonText = "Apply 100f Knockback", method =() => Experimental.ApplyKnockback(100f), isTogglable = false, toolTip = "[EXPERIMENTAL] Applied 100 knockback"}, // cannot be applied to other people, so if you thought so, thats wrong
+                new ButtonInfo { buttonText = "No Tag On Join", method =() => Experimental.NoTagOnJoin(), disableMethod =() => Experimental.TagOnJoin(), isTogglable = true, toolTip = "[EXPERIMENTAL] No Tag On Join"}, // no tag on join yea
+                new ButtonInfo { buttonText = "Bypass Mute (W?) (D?)", method =() => Experimental.bypassmute(), isTogglable = false, toolTip = ""}, // detected maybe or even working idk
                 new ButtonInfo { buttonText = "Add some Ghost Reactor XP (cooldown) (SINGLEPLAYER ROOM/NOONE IN ROOM)", method = () => Experimental.AddProgressionPoints(9999), isTogglable = false, toolTip = "[EXPERIMENTAL] Added some Ghost Reactor XP (dont spam) (SINGLEPLAYER ROOM/NOONE IN ROOM)" }, // if you spam this, it could get detected because it sends data to a API
                 new ButtonInfo { buttonText = "Give 10000 total playtime (ghost reactor)", method = () => Experimental.SetTotalPlayTime(10000f), isTogglable = false, toolTip = "[EXPERIMENTAL] Added 10k total playtime maybe" }, // no visualization if this is really working, kind of useless.
                 new ButtonInfo { buttonText = "Spawn Random Critter (MASTER) (CRITTER MAP)", method = () => Experimental.SpawnRandomCritterAtHand(), isTogglable = false, toolTip = "[EXPERIMENTAL] Spawned Random Critter Maybe" }, // master

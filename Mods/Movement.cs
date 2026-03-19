@@ -145,49 +145,6 @@ namespace StupidTemplate.Mods
             }
         }
 
-        public static void WASDFly()
-        {
-            float speed = 10f;
-            Transform head = GorillaTagger.Instance.headCollider.transform;
-
-            Vector3 move = Vector3.zero;
-
-            if (Input.GetKey(KeyCode.W))
-            {
-                move += head.forward;
-            }
-
-            if (Input.GetKey(KeyCode.S))
-            {
-                move -= head.forward;
-            }
-
-            if (Input.GetKey(KeyCode.A))
-            {
-                move -= head.right;
-            }
-
-            if (Input.GetKey(KeyCode.D))
-            {
-                move += head.right;
-            }
-
-            if (Input.GetKey(KeyCode.Space))
-            {
-                move += Vector3.up;
-            }
-
-            if (Input.GetKey(KeyCode.LeftControl))
-            {
-                move -= Vector3.up;
-            }
-
-            if (move != Vector3.zero)
-            {
-                GTPlayer.Instance.transform.position += move.normalized * speed * Time.deltaTime;
-                GorillaTagger.Instance.rigidbody.linearVelocity = Vector3.zero;
-            }
-        }
 
         // vars for TeleportGun below
         public static bool previousTeleportTrigger;

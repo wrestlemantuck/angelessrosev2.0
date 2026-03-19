@@ -6,12 +6,21 @@ using UnityEngine;
 using UnityEngine.XR;
 using static StupidTemplate.Classes.RigManager;
 using static StupidTemplate.Menu.Main;
+using Photon.Pun;
 
 
 namespace StupidTemplate.Mods
 {
     public class Safety
     {
+        public static void SpoofColor()
+        {
+            PlayerPrefs.SetFloat("redValue", UnityEngine.Random.value);
+			PlayerPrefs.SetFloat("greenValue", UnityEngine.Random.value);
+			PlayerPrefs.SetFloat("blueValue", UnityEngine.Random.value);
+			PlayerPrefs.Save();
+            PhotonNetwork.ReconnectAndRejoin();
+        }
         private static float nextRefreshTime = 0f;
         private static MethodInfo refreshMethod;
 
