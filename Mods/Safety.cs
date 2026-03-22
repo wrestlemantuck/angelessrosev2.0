@@ -15,15 +15,14 @@ namespace StupidTemplate.Mods
     {
         public static void SpoofColor()
         {
-            PlayerPrefs.SetFloat("redValue", UnityEngine.Random.value);
-			PlayerPrefs.SetFloat("greenValue", UnityEngine.Random.value);
-			PlayerPrefs.SetFloat("blueValue", UnityEngine.Random.value);
-			PlayerPrefs.Save();
-            PhotonNetwork.ReconnectAndRejoin();
+            if (GorillaTagger.Instance == null)
+                NotifiLib.SendNotification("Cant find gorillatagger (maybe join a lobby?)");
+            GorillaTagger.Instance.UpdateColor(UnityEngine.Random.value, UnityEngine.Random.value, UnityEngine.Random.value);
         }
         private static float nextRefreshTime = 0f;
         private static MethodInfo refreshMethod;
 
+        [System.Obsolete]
         public static void RPCSafety()
         {
             if (Time.time < nextRefreshTime)

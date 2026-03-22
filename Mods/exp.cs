@@ -27,7 +27,6 @@ namespace StupidTemplate.Mods
 			PhotonNetwork.LocalPlayer.SetCustomProperties(hashtable, null, null);
 			PlayerPrefs.SetString("didTutorial", "nope");
 			PlayerPrefs.Save();
-
         }
         public static void bypassmute()
         {
@@ -46,7 +45,7 @@ namespace StupidTemplate.Mods
             ExitGames.Client.Photon.Hashtable hashtable = new ExitGames.Client.Photon.Hashtable();
 			hashtable.Add("didTutorial", true);
 			PhotonNetwork.LocalPlayer.SetCustomProperties(hashtable, null, null);
-			PlayerPrefs.SetString("didTutorial", "done");
+			PlayerPrefs.SetString("didTutorial", "done.");
 			PlayerPrefs.Save();
         }
         public static void DespawnAllCritters()
