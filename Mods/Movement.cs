@@ -102,7 +102,7 @@ namespace StupidTemplate.Mods
                 {
                     platl = GameObject.CreatePrimitive(PrimitiveType.Cube);
                     platl.transform.localScale = new Vector3(0.025f, 0.3f, 0.4f);
-                    platl.transform.position = TrueLeftHand().position;
+                    platl.transform.position = TrueLeftHand().position + new Vector3(0f, -0.08f, 0f);
                     platl.transform.rotation = TrueLeftHand().rotation;
 
                     FixStickyColliders(platl);
@@ -110,13 +110,13 @@ namespace StupidTemplate.Mods
                     ColorChanger colorChanger = platl.AddComponent<ColorChanger>();
                     colorChanger.colors = StupidTemplate.Settings.backgroundColor;
                 }
-                else
+            }
+            else
+            {
+                if (platl != null)
                 {
-                    if (platl != null)
-                    {
-                        Object.Destroy(platl);
-                        platl = null;
-                    }
+                    Object.Destroy(platl);
+                    platl = null;
                 }
             }
 
@@ -126,25 +126,24 @@ namespace StupidTemplate.Mods
                 {
                     platr = GameObject.CreatePrimitive(PrimitiveType.Cube);
                     platr.transform.localScale = new Vector3(0.025f, 0.3f, 0.4f);
-                    platr.transform.position = TrueRightHand().position;
+                    platr.transform.position = TrueRightHand().position + new Vector3(0f, -0.08f, 0f);
                     platr.transform.rotation = TrueRightHand().rotation;
 
                     FixStickyColliders(platr);
 
                     ColorChanger colorChanger = platr.AddComponent<ColorChanger>();
-                    colorChanger.colors = StupidTemplate.Settings.backgroundColor; // becomes the background color
+                    colorChanger.colors = StupidTemplate.Settings.backgroundColor;
                 }
-                else
+            }
+            else
+            {
+                if (platr != null)
                 {
-                    if (platr != null)
-                    {
-                        Object.Destroy(platr);
-                        platr = null;
-                    }
+                    Object.Destroy(platr);
+                    platr = null;
                 }
             }
         }
-
 
         // vars for TeleportGun below
         public static bool previousTeleportTrigger;
