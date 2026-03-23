@@ -10,7 +10,18 @@ using Oculus.Interaction.Input;
 namespace StupidTemplate.Mods
 {
     public class Movement
-    {
+    { 
+        public static void FixRotation()
+        {
+            Rigidbody rb = GorillaTagger.Instance.rigidbody;
+
+            rb.angularVelocity = Vector3.zero;
+
+            Vector3 headEuler = GorillaTagger.Instance.headCollider.transform.eulerAngles;
+
+            GorillaTagger.Instance.transform.rotation = Quaternion.Euler(0f, headEuler.y, 0f);
+        }
+        
         public static void GhostMonke()
         {
             if (ControllerInputPoller.instance.rightControllerPrimaryButton)
@@ -188,6 +199,8 @@ namespace StupidTemplate.Mods
 
             GorillaTagger.Instance.rigidbody.linearVelocity = Vector3.zero;
             GorillaTagger.Instance.rigidbody.angularVelocity = Vector3.zero;
+
+            FixRotation();
         }
 
         previousTeleportTrigger = trigger;
